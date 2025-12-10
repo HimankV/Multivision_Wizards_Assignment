@@ -40,6 +40,11 @@ export const findMonths = async () => {
   return res;
 };
 
+export const deleteAllStudents = async () => {
+  "use server";
+  await prisma.Student.deleteMany({});
+};
+
 // export async function insertStudent(
 //   StudentName_: string,
 //   Class_: Number,

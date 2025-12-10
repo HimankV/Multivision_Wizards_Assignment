@@ -20,25 +20,35 @@ function BarGraph() {
     Tooltip,
     Legend
   );
-  const [students, setStudents] = useState([]);
+  // const [students, setStudents] = useState([]);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    async function fetchStudents() {
-      const res = await fetch("/api/students");
-      const studentData = await res.json();
-      setStudents(studentData);
-    }
-    fetchStudents();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchStudents() {
+  //     const res = await fetch("/api/students");
+  //     const studentData = await res.json();
+  //     setStudents(studentData);
+  //   }
+  //   fetchStudents();
+  // }, []);
 
   useEffect(() => {
-    async function fetchMonths() {
-      const res = await fetch("/api/months");
-      const months = await res.json();
-      setData(months);
-    }
+    let isMounted = true;
+    const fetchMonths = async () => {
+      try {
+        const res = await fetch("/api/months");
+        const months = await res.json();
+        if (isMounted) setData(months);
+      } catch (err) {
+        // handle error if needed
+      }
+    };
     fetchMonths();
+    const interval = setInterval(fetchMonths, 2000); // Poll every 5 seconds
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
   const labels = [

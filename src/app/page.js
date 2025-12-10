@@ -1,7 +1,7 @@
 import Form from "../../Components/Form";
 import BarGraph from "../../Components/BarGraph";
-import { findStudents } from "../../Components/create_user";
-import StudentsList from "../../Components/StudentsList";
+import { findStudents, deleteAllStudents } from "../../Components/create_user";
+
 
 export default async function Home() {
   const StudentsList = await findStudents();
@@ -58,7 +58,7 @@ export default async function Home() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          marginBottom: "500px",
+          marginBottom: "50px",
         }}
       >
         <div
@@ -89,7 +89,31 @@ export default async function Home() {
           ))}
         </div>
       </div>
-      {/* <div style={{ height: "100px", border: "1px solid cyan" }}></div> */}
+      <div
+        style={{
+          height: "50px",
+          // backgroundColor: "azure",
+          display: "flex",
+          justifyContent: "center",
+          marginBottom: "500px",
+        }}
+      >
+        <button
+          style={{
+            fontFamily: "Helvetica_Neue",
+            fontSize: "18px",
+            backgroundColor: "black",
+            color: "white",
+            width: "100px",
+            padding: "2px",
+            borderRadius: "2px",
+            cursor: "pointer",
+          }}
+          onClick={deleteAllStudents}
+        >
+          Reset
+        </button>
+      </div>
     </div>
   );
 }
